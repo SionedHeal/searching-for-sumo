@@ -11,13 +11,10 @@ file_in = 'Mfn2_seq.fasta'
 #The following code, used to record the FASTA sequence without spaces in between lines, was taken from a webpage: http://python.omics.wiki/biopython/examples/read-fasta
 
 # seq_record opens the FASTA sequence and reads it as a fasta sequence. 
-# The fasta id line is removed from seq_record.description, and is separated into seq_record.id, which can be printed seperately 
 
 #The FASTA sequence is saved as fasta_sequence to be further manipulated
 
-with open (file_in, 'w') as f_in:
     for seq_record in SeqIO.parse(open('Mfn2_seq.txt', mode='r'),'fasta'):
-        seq_record.description=''.join(seq_record.description[1:])
         print(seq_record.seq)
         print(seq_record.id)
         fasta_sequence = seq_record.seq
