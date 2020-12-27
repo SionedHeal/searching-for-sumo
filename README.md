@@ -46,7 +46,13 @@ print(categorised_sequence)
 new_sequence= " ".join(categorised_sequence)
 print(new_sequence)
 
-#Search new sequence string for specific SUMOylation consensus sequence: h K x a
+#Create seperate objects for each of the sequences to search for, taking into account the fact that h, k and a should also be considered x
 
-print("There is", new_sequence.count("h k x a"), "SUMOylation site")
-print("at position", new_sequence.find("h k x a"))
+hkxa = new_sequence.count("h k x a")
+hkaa = new_sequence.count("h k a a")
+hkka = new_sequence.count("h k k a")
+hkha = new_sequence.count("h k h a")
+
+#Search the categorised_sequence for each sequence and print the total of counts
+
+print("There is", hkxa + hkaa + hkka + hkha, "SUMOylation sites in", fasta_file)
