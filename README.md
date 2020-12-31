@@ -39,12 +39,19 @@ for letter in fasta_sequence:
     aminoacid_type=aminoacid_category[letter]
     categorised_sequence.append(aminoacid_type)
     
-print(categorised_sequence)
 
 #Turn categorised list into new sequence by removing punctuation: 
 
 new_sequence= " ".join(categorised_sequence)
-print(new_sequence)
+
+#Identify each SUMOylation site using capital letters
+
+ new_sequence_1=new_sequence.replace("h k x a", "H K X A")
+ new_sequence_2=new_sequence_1.replace("h k a a", "H K A A")
+ new_sequence_3=new_sequence_2.replace("h k k a", "H K K A")
+ new_sequence_4=new_sequence_3.replace("h k h a", "H K H A")
+    
+    print(new_sequence_4)
 
 #Create seperate objects for each of the sequences to search for, taking into account the fact that h, k and a should also be considered x
 
