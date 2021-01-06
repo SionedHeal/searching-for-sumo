@@ -38,29 +38,29 @@ def find_sumo(fasta_file):
 
 #Turn categorised list into new sequence by removing punctuation: 
 
-new_sequence= "".join(categorised_sequence)
+    new_sequence= "".join(categorised_sequence)
 
 #Identify each SUMOylation site using capital letters
 
- new_sequence_1=new_sequence.replace("hkxa", "HKXA")
- new_sequence_2=new_sequence_1.replace("hkaa", "HKAA")
- new_sequence_3=new_sequence_2.replace("hkka", "HKKA")
- new_sequence_4=new_sequence_3.replace("hkha", "HKHA")
+    new_sequence_1=new_sequence.replace("hkxa", "HKXA")
+    new_sequence_2=new_sequence_1.replace("hkaa", "HKAA")
+    new_sequence_3=new_sequence_2.replace("hkka", "HKKA")
+    new_sequence_4=new_sequence_3.replace("hkha", "HKHA")
 #Dictate function to print the original fasta sequence, followed by the categorised sequence showing where the
 #sumo sites are using capital letters
-    print(fasta_sequence)
-    print(new_sequence_4)
+    print("Protein sequence:",fasta_sequence)
+    print("Categorised sequence, motif positions as capitals:", new_sequence_4)
 
 #Create seperate objects for each of the sequences to search for, taking into account the fact that h, k and a should also be considered x
 
-hkxa = new_sequence.count("hkxa")
-hkaa = new_sequence.count("hkaa")
-hkka = new_sequence.count("hkka")
-hkha = new_sequence.count("hkha")
+    hkxa = new_sequence.count("hkxa")
+    hkaa = new_sequence.count("hkaa")
+    hkka = new_sequence.count("hkka")
+    hkha = new_sequence.count("hkha")
 
 #Search the categorised_sequence for each sequence and print the total of counts
 
-print("There is", hkxa + hkaa + hkka + hkha, "SUMOylation sites in", fasta_file)
+    print("There is", hkxa + hkaa + hkka + hkha, "SUMOylation sites in", fasta_file)
 
 #Determine the positions of each sequence and add them to a list if the position number is >0
     sumo_positions = [] 
@@ -82,3 +82,4 @@ print("There is", hkxa + hkaa + hkka + hkha, "SUMOylation sites in", fasta_file)
         sumo_positions.append(hkha_pos)
 #Print the positions of each sequence
     print("at positions", sumo_positions)
+
