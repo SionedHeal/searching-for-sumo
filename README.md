@@ -83,3 +83,4 @@ def find_sumo(fasta_file):
 #Print the positions of each sequence
     print("at positions", sumo_positions)
 
+# searching-for-sumo
