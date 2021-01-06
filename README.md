@@ -1,86 +1,33 @@
-#Create a function within a module:
-def find_sumo(fasta_file):
-#Install biopython which is able to read in FASTA files using SeqRecord
- 
+This is code writted in Python produced to scan any protein FASTA sequence for a specific motif of 
+amino acids which suggest that the protien may be able to be modified by SUMO at the lysine residue 
+within this motif. The code has been tested with the fasta sequence of two protiens which are known 
+to contian the SUMOylation motif: Mitofusin2 (Mfn2) and Dynamin-related protein 1 (Drp1). 
 
-    from Bio import SeqIO
-    from Bio.SeqRecord import SeqRecord
+To run:
 
-#The following code, used to record the FASTA sequence without spaces in between lines, was taken from a webpage: http://python.omics.wiki/biopython/examples/read-fasta
+1) Download the SUMO.py code which is the module that contains the function required to search a 
+text file containing the fasta sequence of the protein of interest. 
 
-# seq_record opens the FASTA sequence and reads it as a fasta sequence. 
+2) Download the search_protein.py code which is the python script that will be run in the terminal
+once the name of the text file containing the protein fasta sequence replaces "fasta_file". 
 
-#The FASTA sequence is saved as fasta_sequence to be further manipulated
+3) Download the example data, either Mfn2_seq.txt or Drp1_seq.txt, which contain the fasta sequences 
+of the corresponding proteins. 
 
-    for seq_record in SeqIO.parse(open(fasta_file),'fasta'):
-        fasta_sequence = seq_record.seq
-        
+4) In the search_protein.py file in python, replace "fasta_file" with the name of the example data
+file downloaded (either "Mfn2_seq.txt" or "Drp1_seq.txt"). Save and run the file in a new terminal. 
+The output should give the fasta sequence, a categorised sequence with motifs identified using 
+capital letters, and the number of SUMOylation sites there is, with their positions stated in a list.
 
-#Consensus SUMOylation site: h K x a (h = hydrophobic, x = any amino acid, a = acidic residue)
-#Dictionary created categorsing each amino acid in the FASTA sequence into either h, K, x, or a
+When Mfn2_seq.txt is run, the output is expected to state their are 2 SUMOylatio sites at positions 
+461 and 190. 
+When Drp1_seq.txt is run, the output is expected to state their are 3 SUMOylation sites at positions 
+510, 260, and the 3rd one is not states (an issue with the current code). 
 
+5) Create a new text file and copy & paste the whole fasta sequence of a protein of interest 
+(include all lines of the fastas sequence, including the title line). Try inserting this file into 
+the search_protein.py code and run to see if your protein contains any SUMOylation motifs.  
 
-    aminoacid_category = {"A": "h", "V": "h", "I": "h", "L": "h", "M": "h", "F": "h", "Y": "h", "W": "h", 
-                  "G": "x", "P": "x", "R": "x", "H": "x", "S": "x", "T": "x", "C": "x", "N": "x", "Q": "x",
-                  "D": "a", "E": "a",
-                  "K": "k"}
-
-#List created for each amino acid as it's category to be documented
-
-    categorised_sequence=[]
-
-#Loop over each letter in fasta sequence and categorise into either h, K, x or a using the dictionary
-
-    for letter in fasta_sequence:
-    aminoacid_type=aminoacid_category[letter]
-    categorised_sequence.append(aminoacid_type)
-    
-
-#Turn categorised list into new sequence by removing punctuation: 
-
-    new_sequence= "".join(categorised_sequence)
-
-#Identify each SUMOylation site using capital letters
-
-    new_sequence_1=new_sequence.replace("hkxa", "HKXA")
-    new_sequence_2=new_sequence_1.replace("hkaa", "HKAA")
-    new_sequence_3=new_sequence_2.replace("hkka", "HKKA")
-    new_sequence_4=new_sequence_3.replace("hkha", "HKHA")
-#Dictate function to print the original fasta sequence, followed by the categorised sequence showing where the
-#sumo sites are using capital letters
-    print("Protein sequence:",fasta_sequence)
-    print("Categorised sequence, motif positions as capitals:", new_sequence_4)
-
-#Create seperate objects for each of the sequences to search for, taking into account the fact that h, k and a should also be considered x
-
-    hkxa = new_sequence.count("hkxa")
-    hkaa = new_sequence.count("hkaa")
-    hkka = new_sequence.count("hkka")
-    hkha = new_sequence.count("hkha")
-
-#Search the categorised_sequence for each sequence and print the total of counts
-
-    print("There is", hkxa + hkaa + hkka + hkha, "SUMOylation sites in", fasta_file)
-
-#Determine the positions of each sequence and add them to a list if the position number is >0
-    sumo_positions = [] 
-
-    hkxa_pos = new_sequence.find("hkxa")
-    if hkxa_pos > 0:
-        sumo_positions.append(hkxa_pos)
-        
-    hkaa_pos = new_sequence.find("hkaa")
-    if hkaa_pos > 0:
-        sumo_positions.append(hkaa_pos)
-        
-    hkka_pos = new_sequence.find("hkka")
-    if hkka_pos > 0:
-        sumo_positions.append(hkka_pos)
-        
-    hkha_pos = new_sequence.find("hkha")
-    if hkha_pos > 0:
-        sumo_positions.append(hkha_pos)
-#Print the positions of each sequence
-    print("at positions", sumo_positions)
-
-# searching-for-sumo
+Note: There is a risk that not all of the positions of each SUMO motif will be stated in the output.
+However, the categorised code will show each motif position using capital letters, that can be
+translated on the protein fasta sequence. 
